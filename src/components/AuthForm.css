@@ -1,0 +1,202 @@
+
+:root{
+  --bg-1: #0f0c29; /* deep navy */
+  --bg-2: #302b63; /* purple */
+  --accent: #ff3ca6; /* neon pink */
+  --accent-2: #00e0ff; /* cyan */
+  --panel: rgba(0,0,0,0.55);
+  --glass: rgba(255,255,255,0.04);
+}
+
+/* global reset for the component area */
+* { box-sizing: border-box; }
+
+html,body,#root{
+  height:100%;
+  margin:0;
+  font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1000px 600px at 10% 10%, rgba(255,60,150,0.06), transparent 8%),
+              linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 60%, #1b0636 100%);
+  color: #e9e6ff;
+}
+
+/* scanlines overlay to simulate old CRT */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, rgba(0,0,0,0) 1px);
+  background-size: 100% 3px;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+  opacity:0.6;
+}
+
+/* center layout */
+.container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+
+/* neon framed form box with pixel title bar */
+.form-box{
+  width:360px;
+  max-width:92vw;
+  border-radius:12px;
+  padding:1.25rem 1.5rem 1.75rem;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04)),
+    linear-gradient(90deg, rgba(255,255,255,0.015), transparent);
+  box-shadow:
+    0 8px 30px rgba(2,6,23,0.6),
+    0 0 18px rgba(0,224,255,0.04) inset,
+    0 0 32px rgba(255,60,150,0.06) inset;
+  border: 1px solid rgba(255,255,255,0.04);
+  position:relative;
+  overflow:hidden;
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* faux title bar — pixel font if available */
+.form-box::before{
+  content: "Login/SignUp Pages";
+  font-family: "Press Start 2P", monospace;
+  font-size:10px;
+  letter-spacing:2px;
+  position:absolute;
+  top:12px;
+  left:14px;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(255,60,150,0.6);
+  opacity:0.95;
+}
+
+/* decorative neon strip at bottom */
+.form-box::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-30%;
+  height:60%;
+  background: radial-gradient(300px 60px at 20% 10%, rgba(0,224,255,0.06), transparent),
+              radial-gradient(300px 60px at 80% 90%, rgba(255,60,150,0.06), transparent);
+  pointer-events:none;
+  transform: rotate(-2deg);
+}
+
+/* form layout */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:0.7rem;
+  margin-top:2.1rem;
+  padding: 0 4px;
+}
+
+h2{
+  font-family:"Press Start 2P", monospace;
+  font-size:12px;
+  margin:0 0 6px 0;
+  color: var(--accent-2);
+  text-shadow:
+    0 2px 0 rgba(0,0,0,0.6),
+    0 0 10px rgba(0,224,255,0.14);
+}
+
+/* inputs with glass + neon outline */
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+  padding:12px 12px;
+  border-radius:8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+  color: #f7f7ff;
+  outline:none;
+  font-size:13px;
+  transition: box-shadow .18s ease, transform .12s ease, border-color .12s;
+  box-shadow: 0 3px 10px rgba(2,6,23,0.45) inset;
+}
+
+/* placeholder style */
+input::placeholder{ color: rgba(230,230,255,0.42); font-size:12px; }
+
+/* focus: neon glow */
+input:focus{
+  border-color: rgba(0,224,255,0.85);
+  box-shadow: 0 6px 30px rgba(0,224,255,0.06), 0 0 14px rgba(0,224,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* button with retro gradient + pixel text */
+button[type="submit"]{
+  margin-top:6px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:1px;
+  font-family: "Press Start 2P", "Montserrat", sans-serif;
+  background: linear-gradient(90deg, rgba(255,60,150,0.95), rgba(0,224,255,0.95));
+  color: white;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+  box-shadow: 0 6px 18px rgba(3,10,30,0.5), 0 0 26px rgba(255,60,150,0.08);
+  transition: transform .12s ease, filter .12s ease;
+}
+
+/* press effect */
+button[type="submit"]:active{
+  transform: translateY(2px) scale(.997);
+  filter: brightness(.96);
+}
+
+/* subtle animated neon outline on hover */
+button[type="submit"]:hover{
+  box-shadow:
+    0 8px 30px rgba(3,10,30,0.7),
+    0 0 32px rgba(255,60,150,0.16),
+    0 0 22px rgba(0,224,255,0.08);
+}
+
+/* toggle text and link style */
+.toggle-text{
+  margin-top:0.9rem;
+  font-size:11px;
+  color: rgba(230,230,255,0.78);
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  align-items:center;
+}
+
+.toggle-btn{
+  background:none;
+  border: none;
+  padding:0;
+  color: var(--accent);
+  font-weight:700;
+  cursor:pointer;
+  text-decoration: underline;
+  text-underline-offset:3px;
+}
+
+/* small helper: error / hint text */
+.hint{
+  font-size:11px;
+  color: rgba(255,255,255,0.6);
+  margin-top:4px;
+}
+
+/* responsive tweaks */
+@media (max-width:420px){
+  .form-box{ width:92%; padding:1rem; border-radius:10px; }
+  h2{ font-size:10px; }
+  input{ padding:10px; font-size:12px; }
+  button{ padding:10px; font-size:12px; }
+}
